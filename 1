@@ -102,6 +102,29 @@
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-card transition-colors duration-300">
+<header class="bg-gray-800 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="font-bold text-xl">Mi App Personal</span>
+                </div>
+                <div class="flex space-x-4">
+                    <button onclick="showMainSection('home-finance')" class="main-section-btn bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">
+                        💰 Finanzas del Hogar
+                    </button>
+                    <button onclick="showMainSection('personal-goals')" class="main-section-btn text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                        🎯 Objetivos Personales
+                    </button>
+                    <button onclick="showMainSection('investments')" class="main-section-btn text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                        📈 Inversiones
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="main-content">
+
+        <div id="home-finance-section" class="main-section">
     <div id="app" class="min-h-screen">
         <!-- Header mejorado -->
         <header class="bg-card border-card shadow-sm border-b sticky top-0 z-40">
@@ -6166,6 +6189,60 @@
                 }
             }
         });
+        </div> <div id="personal-goals-section" class="main-section hidden">
+            <div class="max-w-7xl mx-auto px-4 py-20 text-center">
+                <span class="text-6xl mb-4 block">🎯</span>
+                <h1 class="text-4xl font-bold text-card mb-4">Objetivos Personales</h1>
+                <p class="text-xl text-muted">Estamos trabajando en esta sección. ¡Vuelve pronto para descubrir nuevas funcionalidades!</p>
+            </div>
+        </div>
+
+        <div id="investments-section" class="main-section hidden">
+            <div class="max-w-7xl mx-auto px-4 py-20 text-center">
+                <span class="text-6xl mb-4 block">📈</span>
+                <h1 class="text-4xl font-bold text-card mb-4">Inversiones</h1>
+                <p class="text-xl text-muted">Estamos trabajando en esta sección. ¡Vuelve pronto para descubrir nuevas funcionalidades!</p>
+            </div>
+        </div>
+
+    </div> ```
+
+### Paso 4: Añadir el JavaScript para que Funcionen los Botones
+
+Finalmente, necesitamos el código que hace la magia de cambiar entre secciones.
+
+**Ve al final de tu archivo, justo antes de la etiqueta de cierre `</body>` (línea 1554 aprox.) y PEGA este nuevo bloque de script:**
+
+```javascript
+    <script>
+        // =================================================================== //
+        // ========= NUEVO SCRIPT PARA MANEJAR SECCIONES PRINCIPALES ========= //
+        // =================================================================== //
+        function showMainSection(sectionName) {
+            // Ocultar todas las secciones principales
+            document.querySelectorAll('.main-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Mostrar la sección seleccionada
+            const sectionToShow = document.getElementById(sectionName + '-section');
+            if (sectionToShow) {
+                sectionToShow.classList.remove('hidden');
+            }
+
+            // Actualizar estilos de los botones
+            document.querySelectorAll('.main-section-btn').forEach(btn => {
+                btn.classList.remove('bg-gray-900', 'text-white');
+                btn.classList.add('text-gray-300', 'hover:bg-gray-700');
+            });
+
+            const activeButton = document.querySelector(`button[onclick="showMainSection('${sectionName}')"]`);
+            if (activeButton) {
+                activeButton.classList.add('bg-gray-900', 'text-white');
+                activeButton.classList.remove('text-gray-300', 'hover:bg-gray-700');
+            }
+        }
+    </script>
     </script>
 </body>
 </html>
